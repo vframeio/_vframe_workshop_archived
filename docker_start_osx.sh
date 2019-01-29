@@ -33,7 +33,13 @@ echo "
                                                  
                                             
 Visual Forensics and Advanced Metadata Extraction
-"
+
+1) run: 'conda activate vframe_workshop'
+2) run 'python cli_workshop.py'
+3) download models 'python cli_workshop.py download_models'
+4) grab a few images
+5) run 'python cli_workshop.py metadata -i data/input/sheep.jpg -o output.csv'
+ "
 # Start the docker container with access to USB devices
 # Make ports accessible to Jupyter
 	#--user docker \
