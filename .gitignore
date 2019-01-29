@@ -3,6 +3,12 @@
 env/
 3rdparty/
 data_store_workshop
+.DS_Store
+
+# ignore files in folder foo
+data/output/*
+# but keep the folder
+!data/output/.keep
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
