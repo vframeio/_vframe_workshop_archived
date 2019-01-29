@@ -38,15 +38,10 @@ Visual Forensics and Advanced Metadata Extraction
 # Make ports accessible to Jupyter
 	#--user docker \
 CUR_DIR=`pwd`
-echo $CUR_DIR
 
 docker run -it --rm --privileged \
-  --hostname VFRAME-$(hostname|sed -e 's/ubuntu-//') \
-	-e DISPLAY=$DISPLAY \
-	--volume /tmp/.X11-unix:/tmp/.X11-unix \
+  --hostname VFRAME \
 	--volume "data_store_workshop:/data_store" \
 	--volume "$CUR_DIR:/vframe_workshop" \
-	-e DISPLAY=unix$DISPLAY \
   -p $docker_port \
 	-e "USER_HTTP=1" $image "$@"
-[ "$sshx" = "true" ] && kill %1 # kill backgrounded socat
