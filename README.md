@@ -24,26 +24,24 @@ Dockererized utilities for VFRAME workshops using the command line to extract me
 
 Extract the image width and height to a CSV:
 
-- run: `python cli_workshop.py metadata -i data_store_workshop/images/your.jpg -o data_store_workshop/output.csv`
+- run: `python cli_workshop.py metadata -i data/input/dog.jpg -o data/output/output.csv`
 
 Extract the image width and height and hash to CSV:
 
-- run: `python cli_workshop.py metadata -i data_store_workshop/images/your.jpg -o data_store_workshop/output.csv --hash`
+- run: `python cli_workshop.py metadata -i data/input/dog.jpg -o data/output/output.csv --hash`
 
 Extract the image width, height, hash, and EXIF to CSV:
 
-- run: `python cli_workshop.py metadata -i data_store_workshop/images/your.jpg -o data_store_workshop/output.csv --hash --exif`
-
-Extract the image width, height, hash, and EXIF to CSV:
-
-- run: `python cli_workshop.py metadata -i data_store_workshop/images/your.jpg -o data_store_workshop/output.csv --hash --exif --faces`
+- run: `python cli_workshop.py metadata -i data/input/dog.jpg -o data/output/output.csv --hash --exif`
 
 Extract the image width, height, hash, EXIF, and face count to CSV:
+
+- run: `python cli_workshop.py metadata -i data/input/obama.jpg -o data/output/output.csv --hash --exif --faces`
 
 Extract the image width, height, hash, EXIF, face count, and object count to CSV:
 
 - first, download object detection models: `python cli_workshop.py`
-- run: `python cli_workshop.py metadata -i data_store_workshop/images/your.jpg -o data_store_workshop/output.csv --hash --exif --faces --objects`
+- run: `python cli_workshop.py metadata -i data/input/sheep.jpg -o data/output/output.csv --hash --exif --faces --objects`
 
 
 ### Getting Images/Videos
