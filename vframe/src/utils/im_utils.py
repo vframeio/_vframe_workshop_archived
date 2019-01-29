@@ -4,19 +4,10 @@ from os.path import join
 import cv2 as cv
 import imagehash
 from PIL import Image, ImageDraw, ImageFilter, ImageOps
-from skimage.filters.rank import entropy
-from skimage.morphology import disk
-from skimage import feature
 # import matplotlib.pyplot as plt
 import imutils
 import time
 import numpy as np
-import torch
-import torch.nn as nn
-import torchvision.models as models
-import torchvision.transforms as transforms
-from torch.autograd import Variable
-from sklearn.metrics.pairwise import cosine_similarity
 import datetime
 
 def ensure_pil(im):
@@ -117,40 +108,6 @@ def resize(im, width=0, height=0):
     return imutils.resize(im, height=h)
   else:
     return im
-
-def filter_pixellate(im,num_cells):
-  """Pixellate image by downsample then upsample
-    :param im: PIL.Image
-    :returns: PIL.Image
-  """
-  w,h = im.size
-  im = im.resize((num_cells,num_cells), Image.NEAREST)
-  im = im.resize((w,h), Image.NEAREST)
-  return im
-
-# Plot images inline using Matplotlib
-# def pltimg(im,title=None,mode='rgb',figsize=(8,12),dpi=160,output=None):
-#   plt.figure(figsize=figsize)
-#   plt.xticks([]),plt.yticks([])
-#   if title is not None:
-#     plt.title(title)
-#   if mode.lower() == 'bgr':
-#     im = cv.cvtColor(im,cv.COLOR_BGR2RGB)
-
-#   f = plt.gcf()
-#   if mode.lower() =='grey' or mode.lower() == 'gray':
-#     plt.imshow(im,cmap='gray')
-#   else:
-#     plt.imshow(im)
-#   plt.show()
-#   plt.draw()
-#   if output is not None:
-#     bbox_inches='tight'
-#     ext=osp.splitext(output)[1].replace('.','')
-#     f.savefig(output,dpi=dpi,format=ext)
-#     print('Image saved to: {}'.format(output))
-
-
 
 # Utilities for analyzing frames
 
@@ -352,77 +309,6 @@ def print_timing(t,n):
     print('Elapsed time: {:.2f}'.format(t))
     print('FPS: {:.2f}'.format(n/t))
 
-def vid2frames(fpath, limit=5000, width=None, idxs=None):
-  """Convert a video file into list of frames
-    :param fpath: filepath to the video file
-    :param limit: maximum number of frames to read
-    :param fpath: the indices of frames to keep (rest are skipped)
-    :returns: (fps, number of frames, list of Numpy.ndarray frames)
-  """
-  frames = []
-  try:
-    cap = cv.VideoCapture(fpath)
-  except:
-    print('[-] Error. Could not read video file: {}'.format(fpath))
-    try:
-      cap.release()
-    except:
-      pass
-    return frames
-
-  fps = cap.get(cv.CAP_PROP_FPS)
-  nframes = int(cap.get(cv.CAP_PROP_FRAME_COUNT))
-
-  if idxs is not None:
-    # read sample indices by seeking to frame index
-    for idx in idxs:
-      cap.set(cv.CAP_PROP_POS_FRAMES, idx)
-      res, frame = cap.read()
-      if width is not None:
-        frame = imutils.resize(frame, width=width)
-      frames.append(frame)
-  else:
-    while(True and len(frames) < limit):
-      res, frame = cap.read()
-      if not res:
-        break
-      if width is not None:
-        frame = imutils.resize(frame, width=width)
-      frames.append(frame)
-
-  cap.release()
-  del cap
-  #return fps,nframes,frames
-  return frames
-
-def convolve_filter(vals,filters=[1]):
-  for k in filters:
-    vals_tmp = np.zeros_like(vals)
-    t = len(vals_tmp)
-    for i,v in enumerate(vals):
-      sum_vals = vals[max(0,i-k):min(t-1,i+k)]
-      vals_tmp[i] = np.mean(sum_vals)
-    vals = vals_tmp.copy()
-  return vals
-
-def cosine_delta(v1,v2):
-  return 1.0 - cosine_similarity(v1.reshape((1, -1)), v2.reshape((1, -1)))[0][0]
-
-
-
-def compute_edges(vals):
-  # find edges (1 = rising, -1 = falling)
-  edges = np.zeros_like(vals)
-  for i in range(len(vals[1:])):
-    delta = vals[i] - vals[i-1]
-    if delta == -1:
-      edges[i] = 1 # rising edge 0 --> 1
-    elif delta == 1:
-      edges[i+1] = 2 # falling edge 1 --> 0
-  # get index for rise fall
-  rising = np.where(np.array(edges) == 1)[0]
-  falling = np.where(np.array(edges) == 2)[0]
-  return rising, falling 
 
 
 ############################################

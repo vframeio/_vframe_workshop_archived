@@ -66,7 +66,7 @@ def cli(ctx, opt_fp_in, opt_fp_out, opt_recursive, opt_exts, opt_size,
   # get file list
   filepaths = file_utils.get_file_list(opt_fp_in)
   if not filepaths:
-    log.error(f'{fp_in} is not a valid file input. Try with "--recursive"')
+    log.error(f'{opt_fp_in} is not a valid file input. Try with "--recursive"')
     return
 
   # ------------------------------------------------
@@ -106,6 +106,7 @@ def cli(ctx, opt_fp_in, opt_fp_out, opt_recursive, opt_exts, opt_size,
 
   df_results = pd.DataFrame.from_dict(results)
   df_results.index.name = 'index'
+  file_utils.mkdirs(opt_fp_out)  # ensure folder exists, or create it
   df_results.to_csv(opt_fp_out)
 
   log.info(f'Processed {len(filepaths)} files')
