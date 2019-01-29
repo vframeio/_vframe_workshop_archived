@@ -32,7 +32,7 @@ echo "
      \/   |_|    |_|  \_\/_/    \_\_|  |_|______|
                                                  
                                             
-Visual Forensics and Advanced Metadata Extraction
+Visual Forensics and Metadata Extraction
 
 1) run: 'conda activate vframe_workshop'
 2) run 'python cli_workshop.py'
@@ -46,9 +46,7 @@ Visual Forensics and Advanced Metadata Extraction
 11) you can also chain these commands. Try adding --hash --exif --faces --objects
 11) check results: 'cat data/output/output.csv'
  "
-# Start the docker container with access to USB devices
-# Make ports accessible to Jupyter
-	#--user docker \
+
 CUR_DIR=`pwd`
 
 docker run -it --rm --privileged \

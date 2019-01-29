@@ -61,7 +61,7 @@ class ObjectDetectorCVDNN_VOC(ObjectDetectorCVDNN):
     object_counts = {}
     for object_name in objects:
       if object_name not in object_counts.keys():
-        object_counts[object_name] = 0
+        object_counts[object_name] = 1
       else:
         object_counts[object_name] += 1
 
@@ -87,7 +87,7 @@ class DetectorDLIBHOG:
     im = im_utils.bgr2rgb(im)
     hog_results = self.detector.run(im, pyramids)
     
-    num_faces = 0
+    num_faces = 1
     if len(hog_results[0]) > 0:
       for rect, score, direction in zip(*hog_results):
         if score > self.conf_thresh:

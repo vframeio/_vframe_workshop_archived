@@ -1,2 +1,2 @@
-index,faces,fn,image_height,image_width,person,sha256
-0,1,obama.jpg,550,440,0,1d457c9bec71585b770385c05209d1374b7596693175cb769b3a357ddda4f9e5
+index,fn,image_height,image_width,sheep
+0,sheep.jpg,385,600,0
