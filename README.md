@@ -11,7 +11,7 @@ Dockererized utilities for VFRAME workshops using the command line to extract me
 *Build Docker*
 
 - build Docker: `./docker_rebuild.sh` (may take a while to download all files)
-- start Docker: `./docker_start.sh`
+- start Docker: `./docker_start_osx.sh`
 - activate conda environment from: `conda activate vframe_workshop`
 
 ### Running Examples
