@@ -17,7 +17,7 @@ Dockererized utilities for VFRAME workshops using the command line to extract me
 ### Running Examples
 
 - test the Click app: `python cli_workshop.py`
-- run metadata exmample: `python cli_workshop.py metadata`
+- run metadata example: `python cli_workshop.py metadata`
 - see all options: `python cli_workshop.py metadata --help`
 
 ### Extract Metadata from an Image
